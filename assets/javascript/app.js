@@ -45,7 +45,7 @@ var imageArray = [
 "<img class='center-block img-right' src='https://media0.giphy.com/media/dqnpI1M64dm8w/giphy.gif'>", 
 "<img class='center-block img-right' src='https://media2.giphy.com/media/slTT5TPKRRB5e/giphy.gif'>", 
 "<img class='center-block img-right' src='https://media2.giphy.com/media/dwNXg3bqFu55m/giphy.gif'>", 
-"<img class='center-block img-right' src='https://media2.giphy.com/media/d8DXIdyPIhS9y/giphy.gif'>", 
+"<img class='center-block img-right' src='http://i2.kym-cdn.com/photos/images/original/000/848/955/aa5.gif'>", 
 "<img class='center-block img-right' src='https://media3.giphy.com/media/nGnKGLOqzhfGM/giphy.gif'>", 
 "<img class='center-block img-right' src='https://media4.giphy.com/media/NLVQbvqrmOa5O/giphy.gif'>", 
 "<img class='center-block img-right' src='https://media1.giphy.com/media/mdoXmObu50euQ/giphy.gif'>", 
