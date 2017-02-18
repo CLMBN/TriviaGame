@@ -80,6 +80,8 @@ var correctAnswers = [
 "B. The Bourne Identity",
 "B. Thor"
 ];
+
+var numArray = [];
 var questionCounter = 0;
 var selectedAnswer;
 var countDown;
@@ -91,17 +93,35 @@ var correctSound = new Audio("assets/sound/win.mp3");
 var wrongSound = new Audio("assets/sound/wrong.mp3");
 var fiveSeconds = new Audio("assets/sound/tictoc.mp3");
 
+
+
+function pickQuestions() {
+    //console.log("pick question");
+    var i = 0;
+    do {
+        var r = Math.floor(Math.random() * 100);
+
+        if (r >= 0 && r <=17 && numArray.indexOf(r) === -1) {
+            numArray.push(r);
+            //console.log(numArray);
+            i++;    
+        }
+    }
+    while (i < 5);
+    console.log(numArray);
+
+}
+
 function generateHTML() {
-	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>30</span></p><p class='text-center'>" + questionArray[questionCounter] + "</p><button class='answer btn btn-block btn-primary'>A. " + answerArray[questionCounter][0] + "</button><button class='answer btn btn-block btn-primary'>B. "+answerArray[questionCounter][1]+"</button><button class='answer btn btn-block btn-primary'>C. "+answerArray[questionCounter][2]+"</button><button class='answer btn btn-block btn-primary'>D. "+answerArray[questionCounter][3]+"</button>";
-	/*questionGenerator():*/
+	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>30</span></p><p class='text-center'>" + questionArray[numArray[questionCounter]] + "</p><button class='answer btn btn-block btn-primary'>A. " + answerArray[numArray[questionCounter]][0] + "</button><button class='answer btn btn-block btn-primary'>B. "+answerArray[numArray[questionCounter]][1]+"</button><button class='answer btn btn-block btn-primary'>C. "+answerArray[numArray[questionCounter]][2]+"</button><button class='answer btn btn-block btn-primary'>D. "+answerArray[numArray[questionCounter]][3]+"</button>";
 	$(".mainGame").html(gameHTML);
 };
-/*
-function questionGenerator() {
+
+function randomGenerator() {
 	for (var i = 0; i < questionArray.length; i++) {
-		questionArray[i]
-	}
-}*/
+		questionSet.push(i);
+	}	
+};
 
 function countdownWrapper() {
 	countDown = setInterval(thirtySeconds, 1000);
@@ -121,35 +141,34 @@ function countdownWrapper() {
 }
 
 function generateTimeoutAlert() {
-	/*notansweredTotal++;*/
 	wrongSound.play();
-	counter = 30
+	counter = 30;
 	unansweredTotal++;
-	gameHTML = "<p class='text-center'>Time is up!  The correct answer was: <br><strong>" + correctAnswers[questionCounter] + "</strong></p>" + imageArray[questionCounter];
+	gameHTML = "<p class='text-center'>Time is up!  The correct answer was: <br><strong>" + correctAnswers[numArray[questionCounter]] + "</strong></p>" + imageArray[numArray[questionCounter]];
 	$(".mainGame").html(gameHTML);
 	setTimeout(wait, 4000);
 }
 
 function generateWin() {
 	correctSound.play();
-	counter = 30
+	counter = 30;
 	correctTotal++;
-	gameHTML = "</p>" + "<p class='text-center'>You  Are Correct! The answer is: <br><strong>" + correctAnswers[questionCounter] + "</strong></p>" + imageArray[questionCounter];
+	gameHTML = "</p>" + "<p class='text-center'>You  Are Correct! The answer is: <br><strong>" + correctAnswers[numArray[questionCounter]] + "</strong></p>" + imageArray[numArray[questionCounter]];
 	$(".mainGame").html(gameHTML);
 	setTimeout(wait, 4000);
 }
 
 function generateLoss() {
 	wrongSound.play();
-	counter = 30
+	counter = 30;
 	incorrectTotal++;
-	gameHTML = "</p>" + "<p class='text-center'>You Are Wrong! The correct answer is: <br><strong>"+ correctAnswers[questionCounter] + "</strong></p>" + imageArray[questionCounter];
+	gameHTML = "</p>" + "<p class='text-center'>You Are Wrong! The correct answer is: <br><strong>"+ correctAnswers[numArray[questionCounter]] + "</strong></p>" + imageArray[numArray[questionCounter]];
 	$(".mainGame").html(gameHTML);
 	setTimeout(wait, 4000);
 }
 
 function wait() {
-	if (questionCounter < 16) {
+	if (questionCounter < 4) {
 		questionCounter++;
 		generateHTML();
 		counter = 30;
@@ -171,6 +190,8 @@ function resetGame() {
 	incorrectTotal = 0;
 	unansweredTotal = 0;
 	counter = 30;
+	numArray = [];
+	pickQuestions();
 	generateHTML();
 	countdownWrapper();
 }
@@ -180,7 +201,8 @@ function resetGame() {
 $(document).ready(function() {
 // Create start button and home screen when page loads
 
-function mainScreen() {
+function mainScreen() {	
+	pickQuestions();
 		startGame = "<p class='text-center main-button-container'><a class='btn-primary btn-lg btn-block start-button' href='#' role='button'>Start Quiz</a></p>";
 		$(".mainGame").html(startGame);
 	}
@@ -200,7 +222,7 @@ $("body").on("click", ".start-button", function(event){
 $("body").on("click", ".answer", function(event) {
 	clickSound.play();
 	selectedAnswer = $(this).text();
-	if(selectedAnswer === correctAnswers[questionCounter]) {
+	if(selectedAnswer === correctAnswers[numArray[questionCounter]]) {
 		//correct answer
 
 		clearInterval(countDown);

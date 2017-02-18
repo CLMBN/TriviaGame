@@ -9,13 +9,3 @@ body {
 	margin-top: 0;
 	color: #DDD;
 }
-
-html,
-body {
-  height: 100%;
-}
-
-
-footer.push {
-  height: 105px;
-}
